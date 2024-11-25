@@ -15,33 +15,17 @@ MainWindow::MainWindow(QWidget *parent)
       _centralWidget{ new QWidget() },
       _loadImageButton{ new QPushButton(QStringLiteral("Choose an image")) },
       _saveImageButton{ new QPushButton(QStringLiteral("Save the modified image")) },
+      _imageProcessingButton{ new QPushButton(QStringLiteral("Image processing task")) },
+      _compressDecompressButton{ new QPushButton(QStringLiteral("Compress/Decompress task")) },
       _sourceImageView(new SourceImageViewWidget()),
       _modifiedImageView(new ModifiedImageViewWidget())
 {
-    setupUi();
-    setupActions();
-    setupConnections();
-}
-
-void MainWindow::setupUi()
-{
     resize(950, 800);
     setCentralWidget(_centralWidget);
-    QVBoxLayout *mainVLayout = new QVBoxLayout();
 
-    QHBoxLayout *viewImageLayout = new QHBoxLayout();
-    QHBoxLayout *controlLayout = new QHBoxLayout();
-
-    viewImageLayout->addWidget(_sourceImageView);
-    viewImageLayout->addWidget(_modifiedImageView);
-
-    controlLayout->addWidget(_loadImageButton);
-    controlLayout->addWidget(_saveImageButton);
-    controlLayout->addWidget(_actionList);
-
-    mainVLayout->addLayout(viewImageLayout);
-    mainVLayout->addLayout(controlLayout);
-    _centralWidget->setLayout(mainVLayout);
+    showMenuView();
+    setupActions();
+    setupConnections();
 }
 
 void MainWindow::setupActions()
@@ -63,6 +47,56 @@ void MainWindow::setupConnections()
     connect(_actionList, &QComboBox::currentIndexChanged, _modifiedImageView,
             &ModifiedImageViewWidget::onActionChanged);
     connect(_saveImageButton, &QPushButton::clicked, this, &MainWindow::onSaveClicked);
+    connect(_imageProcessingButton, &QPushButton::clicked, this,
+            &MainWindow::showImageProcessingView);
+    connect(_compressDecompressButton, &QPushButton::clicked, this,
+            &MainWindow::showCompressDecompressView);
+}
+
+void MainWindow::showMenuView()
+{
+    QVBoxLayout *mainVLayout = new QVBoxLayout();
+    QHBoxLayout *buttonsLayout = new QHBoxLayout();
+
+    buttonsLayout->addWidget(_imageProcessingButton);
+    buttonsLayout->addWidget(_compressDecompressButton);
+
+    mainVLayout->addLayout(buttonsLayout);
+    _centralWidget->setLayout(mainVLayout);
+}
+
+void MainWindow::showImageProcessingView()
+{
+    // TODO: TBD
+    _centralWidget = new QWidget();
+    setCentralWidget(_centralWidget);
+
+    QVBoxLayout *mainVLayout = new QVBoxLayout();
+
+    QHBoxLayout *viewImageLayout = new QHBoxLayout();
+    QHBoxLayout *controlLayout = new QHBoxLayout();
+
+    viewImageLayout->addWidget(_sourceImageView);
+    viewImageLayout->addWidget(_modifiedImageView);
+
+    controlLayout->addWidget(_loadImageButton);
+    controlLayout->addWidget(_saveImageButton);
+    controlLayout->addWidget(_actionList);
+
+    mainVLayout->addLayout(viewImageLayout);
+    mainVLayout->addLayout(controlLayout);
+    _centralWidget->setLayout(mainVLayout);
+}
+
+void MainWindow::showCompressDecompressView()
+{
+    // TODO: TBD
+    _centralWidget = new QWidget();
+    setCentralWidget(_centralWidget);
+
+    QVBoxLayout *mainVLayout = new QVBoxLayout();
+
+    _centralWidget->setLayout(mainVLayout);
 }
 
 void MainWindow::resrtComboBox()

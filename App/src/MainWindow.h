@@ -5,7 +5,6 @@
 class SourceImageViewWidget;
 class ModifiedImageViewWidget;
 class QPushButton;
-class QGraphicsScene;
 class QComboBox;
 
 enum class Action
@@ -23,9 +22,12 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
 
 private:
-    void setupUi();
     void setupActions();
     void setupConnections();
+
+    void showMenuView();
+    void showImageProcessingView();
+    void showCompressDecompressView();
 
     void resrtComboBox();
 
@@ -40,6 +42,8 @@ private:
     QWidget *_centralWidget{ nullptr };
     QPushButton *_loadImageButton{ nullptr };
     QPushButton *_saveImageButton{ nullptr };
+    QPushButton *_imageProcessingButton{ nullptr };
+    QPushButton *_compressDecompressButton{ nullptr };
     SourceImageViewWidget *_sourceImageView{ nullptr };
     ModifiedImageViewWidget *_modifiedImageView{ nullptr };
 };

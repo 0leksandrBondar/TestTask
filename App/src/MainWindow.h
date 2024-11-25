@@ -3,6 +3,8 @@
 #include <QMainWindow>
 
 class SourceImageViewWidget;
+class Archiver;
+
 class ModifiedImageViewWidget;
 class QPushButton;
 class QComboBox;
@@ -20,6 +22,7 @@ class MainWindow final : public QMainWindow
     Q_OBJECT
 public:
     explicit MainWindow(QWidget *parent = nullptr);
+    virtual ~MainWindow() = default;
 
 private:
     void setupActions();
@@ -44,6 +47,8 @@ private:
     QPushButton *_saveImageButton{ nullptr };
     QPushButton *_imageProcessingButton{ nullptr };
     QPushButton *_compressDecompressButton{ nullptr };
+
+    Archiver *_archivator{ nullptr };
     SourceImageViewWidget *_sourceImageView{ nullptr };
     ModifiedImageViewWidget *_modifiedImageView{ nullptr };
 };

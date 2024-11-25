@@ -2,6 +2,7 @@
 
 #include "ModifiedImageViewWidget.h"
 #include "SourceImageViewWidget.h"
+#include "archiver.h"
 
 #include <QComboBox>
 #include <QFileDialog>
@@ -17,6 +18,7 @@ MainWindow::MainWindow(QWidget *parent)
       _saveImageButton{ new QPushButton(QStringLiteral("Save the modified image")) },
       _imageProcessingButton{ new QPushButton(QStringLiteral("Image processing task")) },
       _compressDecompressButton{ new QPushButton(QStringLiteral("Compress/Decompress task")) },
+      _archivator{ new Archiver(this) },
       _sourceImageView(new SourceImageViewWidget()),
       _modifiedImageView(new ModifiedImageViewWidget())
 {
@@ -94,9 +96,7 @@ void MainWindow::showCompressDecompressView()
     _centralWidget = new QWidget();
     setCentralWidget(_centralWidget);
 
-    QVBoxLayout *mainVLayout = new QVBoxLayout();
-
-    _centralWidget->setLayout(mainVLayout);
+    _archivator->showUi(_centralWidget);
 }
 
 void MainWindow::resrtComboBox()
